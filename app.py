@@ -5,21 +5,24 @@ import credentials
 app = Flask(__name__)
 
 notion = functions.Notion(credentials.notion_token)
+manychat = function.Manychat()
 
-@app.route('/request_accepted', methods=['POST'])
-def manychat_request():
-    manychat_data = request.get_json()
-    user = functions.User()
-    user.get_manychat_data(manychat_data)
-    notion.request_accepted(user.notion_page_id, user.specialist_notion_id)
-    response = {'status':'ok', 'notion_page_url': user.notion_page_url}
+@app.route('/new_member', methods=['POST'])
+def add_member():
+    manychat_data = manychat.get()
+    user_id = manychat_data['id']
+    user = functions.User(user_id)
+    notion.new_user_page(credentials.notion_db_id, user=user)
+    response = {'status': notion.response.status_code, 'data': notion.response.content}
     return response
 
 @app.route('/UpdateSpecialistManychatID', methods=['POST'])
 def update_manychat_id():
     manychat_data = request.get_json()
     user = functions.User()
-    user.specialist_manychat_id = manychat_data['id']
+    user.get_manychat_data(manychat_data)
+
+
     user.page_id = manychat_data['custom_fields']['notion_page_id']
     notion.update_manychat_id(user.page_id, user.specialist_manychat_id)
     response = {'status':'ok', 'notion_page_url': user.notion_page_url}
