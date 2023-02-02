@@ -12,6 +12,7 @@ def add_member():
     manychat_data = manychat.get()
     user_id = manychat_data['id']
     user = functions.User(user_id)
+    user.get_newuser_manychat_data(manychat_data)
     notion.new_user_page(credentials.notion_db_id, user=user)
     response = {'status': notion.response.status_code, 'data': notion.response.content}
     return response
