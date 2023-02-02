@@ -5,7 +5,7 @@ import credentials
 app = Flask(__name__)
 
 notion = functions.Notion(credentials.notion_token)
-manychat = function.Manychat()
+manychat = functions.Manychat()
 
 @app.route('/new_member', methods=['POST'])
 def add_member():
