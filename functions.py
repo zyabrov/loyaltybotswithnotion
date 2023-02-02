@@ -1,4 +1,3 @@
-from typing import Any
 import requests
 from flask import request
 
@@ -12,7 +11,7 @@ class User:
         self.notion_page_url = None
 
 
-    def get_manychat_data(self, manychat_data):
+    def get_newuser_manychat_data(self, manychat_data):
         self.manychat_data = manychat_data
         self.name = self.manychat_data['name']
         self.profile_pic = self.manychat_data['profile_pic']
@@ -22,9 +21,7 @@ class User:
         self.ig_username = self.manychat_data['ig_username']
         self.ig_id = self.manychat_data['ig_id']
         self.last_growth_tool = self.manychat_data['last_growth_tool']
-
-        self.notion_page_id = self.manychat_data['custom_fields']['запит_notion_page_id']
-
+        
 
     def get_manychat_value(self, field, iscustom):
         value = None
