@@ -1,7 +1,7 @@
 import requests
 from flask import request
 
-
+"""
 def array_to_string(array):
     text = None
     for string in array:
@@ -16,6 +16,7 @@ def array_to_string(array):
 
     return response
 
+"""
 
 def list_to_diclist(names, list_to_change):
     return dict(zip(names, list_to_change))
