@@ -33,7 +33,7 @@ def manychat_request(api_method):
     elif api_method == 'GetNotionUserInfo':
         response = notion.get_user_data(user)
     elif api_method == 'ArrayToString':
-        response = functions.array_to_string(user.manychat_data)
+        response = functions.array_to_string(user.manychat_data['array'])
     return response
 
 
