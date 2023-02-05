@@ -21,6 +21,7 @@ def add_member():
 
 @app.route('/manychat/<api_method>', methods=['POST'])
 def manychat_request(api_method):
+    print('Got Manychat Request')
     manychat_data = request.get_json()
     print(manychat_data)
     user = functions.User(manychat_id=manychat_data['id'])

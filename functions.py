@@ -41,8 +41,8 @@ class User:
         self.last_growth_tool = self.manychat_data['last_growth_tool']
 
     def get_manychat_value(self, field, iscustom):
-        value = None
-        if iscustom == True:
+        iscustom = None
+        if iscustom:
             value = self.manychat_data['custom_fields'][field]
         else:
             value = self.manychat_data[field]
