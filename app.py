@@ -7,6 +7,11 @@ app = Flask(__name__)
 notion = functions.Notion(credentials.notion_token)
 manychat = functions.Manychat()
 
+
+
+
+
+
 @app.route('/new_member', methods=['POST'])
 def add_member():
     manychat_data = manychat.get()
@@ -17,14 +22,23 @@ def add_member():
     response = {'status': notion.response.status_code, 'data': notion.response.content}
     return response
 
-@app.route('/UpdateSpecialistManychatID', methods=['POST'])
-def update_manychat_id():
+@app.route('/manychat/<api_method>', methods=['GET', 'POST'])
+def manychat_request(api_method):
     manychat_data = request.get_json()
     user = functions.User()
     user.get_manychat_data(manychat_data)
+    if api_method == 'UpdateSpecialistManychatID':
+        response = update_manychat_id(user)
+    elif api_method == 'GetNotionUserInfo':
+        response = notion.get_user_data(user)
+    elif api_method == 'ArrayToString':
+        response = function.array_to_string(user)
+    return response
 
 
-    user.page_id = manychat_data['custom_fields']['notion_page_id']
+
+def update_manychat_id(user):
+    user.page_id = user.manychat_data['custom_fields']['notion_page_id']
     notion.update_manychat_id(user.page_id, user.specialist_manychat_id)
     response = {'status':'ok', 'notion_page_url': user.notion_page_url}
     return response
@@ -33,9 +47,3 @@ def update_manychat_id():
 @app.route('/', methods=['GET'])
 def test():
     print('Get request')
-
-
-
-@app.route('/notion', methods=['GET', 'POST'])
-def notion_request(user):
-    pass
