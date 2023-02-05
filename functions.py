@@ -3,6 +3,7 @@ from flask import request
 
 
 def array_to_string(array):
+    text = ""
     for string in array:
         if text is None:
             text = string
