@@ -33,7 +33,8 @@ def manychat_request(api_method):
         
     """
     if api_method == 'ArrayToString':
-        response = functions.array_to_string(user.manychat_data['array'])
+        response = user.manychat_data['array']
+        print(response)
     return response
 
 
