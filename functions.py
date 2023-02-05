@@ -13,7 +13,7 @@ def array_to_string(array):
         'quantity': len(array)
     }
    
-    return response
+    return response 
 
 def list_to_diclist(names, list_to_change):
     return dict(zip(names, list_to_change))
