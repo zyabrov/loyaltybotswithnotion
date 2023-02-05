@@ -13,22 +13,21 @@ def array_to_string(array):
         'text': text,
         'quantity': len(array)
     }
-   
-    return response 
+
+    return response
+
 
 def list_to_diclist(names, list_to_change):
     return dict(zip(names, list_to_change))
 
 
-
 class User:
-    def __init__(self, id):
-        self.id = id
+    def __init__(self, manychat_id):
+        self.id = manychat_id
         self.name = None
         self.manychat_data = None
         self.notion_page_id = None
         self.notion_page_url = None
-
 
     def get_newuser_manychat_data(self, manychat_data):
         self.manychat_data = manychat_data
@@ -40,7 +39,6 @@ class User:
         self.ig_username = self.manychat_data['ig_username']
         self.ig_id = self.manychat_data['ig_id']
         self.last_growth_tool = self.manychat_data['last_growth_tool']
-        
 
     def get_manychat_value(self, field, iscustom):
         value = None
@@ -49,17 +47,6 @@ class User:
         else:
             value = self.manychat_data[field]
         return value
-
-
-class Specialist(User):
-    def __init__(self):
-        super.__init__(self)
-
-
-class Admin:
-    def __init__(self, user_id):
-        super.__init__(self,user_id)
-
 
 
 class Manychat:
@@ -145,18 +132,15 @@ class Notion:
                     "date": {
                         "start": user.last_seen
                     }
-                }                
+                }
             },
-            "children": []            
+            "children": []
         }
         self.create_page()
-    
 
     def create_page(self):
         self.response = requests.post(self.url, json=self.json, headers=self.headers)
         return self.response
-
-
 
     def request_accepted(self, page_id, specialist_notion_id):
         self.page_id = page_id
@@ -164,10 +148,10 @@ class Notion:
 
         self.json = {
             'properties': {
-                "Етап": { "select": { "name": "Запит прийнято" }},
-                "Спеціаліст": { "people": [{ "id": self.specialist_notion_id }] }
-                }
+                "Етап": {"select": {"name": "Запит прийнято"}},
+                "Спеціаліст": {"people": [{"id": self.specialist_notion_id}]}
             }
+        }
         self.update_page_properties()
 
     def update_manychat_id(self, page_id, manychat_id):
@@ -175,9 +159,9 @@ class Notion:
         self.manychat_id = int(manychat_id)
         self.json = {
             "properties": {
-                "Manychat ID": { "type": "number", "number": self.manychat_id }
-                }
+                "Manychat ID": {"type": "number", "number": self.manychat_id}
             }
+        }
         self.update_page_properties()
 
     def update_page_properties(self):
