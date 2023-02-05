@@ -43,8 +43,3 @@ def update_manychat_id(user):
     notion.update_manychat_id(user.page_id, user.specialist_manychat_id)
     response = {'status':'ok', 'notion_page_url': user.notion_page_url}
     return response
-
-
-@app.route('/', methods=['GET'])
-def test():
-    print('Get request')
