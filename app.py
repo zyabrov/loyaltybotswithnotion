@@ -25,6 +25,7 @@ def add_member():
 @app.route('/manychat/<api_method>', methods=['POST'])
 def manychat_request(api_method):
     manychat_data = request.get_json()
+    print(manychat_data)
     user = functions.User(id=manychat_data['id'])
     user.manychat_data = manychat_data
     if api_method == 'UpdateSpecialistManychatID':
