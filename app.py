@@ -22,7 +22,7 @@ def add_member():
     response = {'status': notion.response.status_code, 'data': notion.response.content}
     return response
 
-@app.route('/manychat/<api_method>', methods=['GET', 'POST'])
+@app.route('/manychat/<api_method>', methods=['POST'])
 def manychat_request(api_method):
     manychat_data = request.get_json()
     user = functions.User()
