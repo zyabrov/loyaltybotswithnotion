@@ -2,6 +2,24 @@ import requests
 from flask import request
 
 
+def array_to_string(array):
+    for string in array:
+        if text is None:
+            text = string
+        else:
+            text = text + '\n' + string
+    response = {
+        'text': text,
+        'quantity': len(array)
+    }
+   
+    return response
+
+def list_to_diclist(names, list_to_change):
+    return dict(zip(names, list_to_change))
+
+
+
 class User:
     def __init__(self, id):
         self.id = id
@@ -37,7 +55,7 @@ class Specialist(User):
         super.__init__(self)
 
 
-class Admin(User):
+class Admin:
     def __init__(self, user_id):
         super.__init__(self,user_id)
 
@@ -68,10 +86,10 @@ class Notion:
         self.database_id = None
         self.response = None
 
-
-    def get_data(self):
-        pass
-
+    def get_page_data(self, page_id):
+        self.page_id = page_id
+        self.url = f'https://api.notion.com/v1/pages{self.page_id}'
+        self.response = requests.get(self.url, headers=self.headers)
 
     def new_user_page(self, database_id, user):
         self.database_id = database_id
